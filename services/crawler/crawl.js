@@ -1,8 +1,8 @@
+const Bottleneck = require('@smedini/bottleneck')
 const got = require('got')
 const later = require('../utils/later')
 const { dbConnect } = require('../stores/db')
 const logger = require('../utils/logger')
-const Bottleneck = require('../utils/Bottleneck')
 const urlStore = require('../stores/newUrlStore')
 const makeParsePerson = require('../parsers/makeParsePerson')
 const parseUrlFromPage = require('../parsers/parseUrlsFromPage')
@@ -38,7 +38,7 @@ const init = async ({ seedUrl, urlFilter }) => {
 
 const incrementDelayBetween2Request = () => {
   delayBetween2Requests += increase429Of
-  limiter.setMinTime(delayBetween2Requests)
+  limiter.setDelay(delayBetween2Requests)
 }
 
 const handle429 = () => {
@@ -76,7 +76,7 @@ const visit = async (index, url) => {
   //logger.info('[VISITING]', index, url)
   return alert429 && Promise.resolve()
     ||
-    limiter.schedule(got, url)
+    limiter.schedule(() => got(url))
       .then(async ({ body }) => {
         totalVisited += 1
         await peekUrls(body)

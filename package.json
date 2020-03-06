@@ -6,6 +6,7 @@
   "author": "smedini@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "@smedini/bottleneck": "^1.0.0",
     "crawler": "^1.2.1",
     "dotenv": "^8.2.0",
     "got": "^9.6.0",

@@ -5,7 +5,7 @@ const cache = {}
 const makePropertyStore = () => {
   const collection = col('properties')
   collection.createIndex({ type: 1 })
-  collection.createIndex({ title: 1 })
+  collection.createIndex({ title: 'text' })
 
   const lookupProperty = async property => {
     const fromCache = cache[property.title]

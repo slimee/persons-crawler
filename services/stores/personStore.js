@@ -3,7 +3,9 @@ let total = 0
 
 const add = person => col('persons')
   .updateOne({ imgUrl: person.imgUrl }, { $set: person }, { upsert: true })
-  .then(() => total++)
+  .then(({ upsertedCount }) => {
+    total = total + upsertedCount
+  })
 
 const count = () => total
 

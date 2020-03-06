@@ -12,7 +12,7 @@ const dbConnect = () =>
   Promise.resolve(dbConnectionString)
     .then(url => {
       logger.info(`CONNECTING TO %o`, url)
-      return MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+      return MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: false })
     })
     .then(client => {
       logger.info('CONNECTED')

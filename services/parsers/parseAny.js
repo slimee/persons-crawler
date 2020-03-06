@@ -18,6 +18,7 @@ const makeExtractRawValue = (...keys) => {
   }
 }
 
+const hrefTitleRegex = /.*?href="(.*?)".*?title="(.*?)(?:"| \()/gs
 const parseLinks = (rawValue, type) => {
   if (rawValue.indexOf('<a ') === -1) return null
   const matches = [...rawValue.matchAll(hrefTitleRegex)]
@@ -43,14 +44,12 @@ const parseRegex = (rawValue, regex) => {
   return match && match[1]
 }
 
-const hrefTitleRegex = /.*?href="(.*?)".*?title="(.*?)(?:"| \()/gs
 const makeParseLinks = (key, ...synonyms) => {
   const extractRawValue = makeExtractRawValue(key, ...synonyms)
   return encadre => parseLinks(extractRawValue(encadre), key)
 }
 
 const makeParseWikiDate = key => {
-  console.log('const makeParseWikiDate = key => {', key)
   const extractRawValue = makeExtractRawValue(key)
   return encadre => parseWikiDate(extractRawValue(encadre))
 }
